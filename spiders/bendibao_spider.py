@@ -8,8 +8,11 @@ import pandas as pd
 class BendibaoSpider(scrapy.Spider):
     # identifies the Spider (unique)
     name = "Bendibao"
-    url_1 = 'http://m.tj.bendibao.com/'
-    url_3 = 'http://m.tj.bendibao.com/news/tianjindongtai/'
+    # base url for news article
+    url_1 = 'http://m.gz.bendibao.com/'
+
+    # base url for next page
+    url_3 = 'http://m.gz.bendibao.com/news/'
 
     def start_requests(self):
         """"
@@ -18,7 +21,7 @@ class BendibaoSpider(scrapy.Spider):
 
         # first url to start
         urls = [
-            'http://m.tj.bendibao.com/news/tianjindongtai/'
+            'http://m.gz.bendibao.com/news/list_17_176_1.htm'
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -66,8 +69,8 @@ class BendibaoSpider(scrapy.Spider):
         year = article_time[0:4]
 
         # if year is less than 2020, exit
-        if int(year) < 2021:
-            sys.exit()
+        if int(year) < 2020:
+            return
 
         # article texts
         article_content = result.find_all("div", class_="content-box")
