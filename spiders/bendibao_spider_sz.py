@@ -36,7 +36,7 @@ class BendibaoSpider(scrapy.Spider):
         # url list for all articles on current page
         # shenzhen should div.sec-list-body
         # other places div.list-item2016
-        url_list_articles = response.css('div.list-item2016 a[target="_blank"]::attr(href)').extract()
+        url_list_articles = response.css('div.sec-list-body a::attr(href)').extract()
 
         # construct full urls for each article
         full_url_list = []
